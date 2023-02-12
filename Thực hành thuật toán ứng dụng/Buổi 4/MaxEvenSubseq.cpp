@@ -1,3 +1,4 @@
+// Problem link: https://www.geeksforgeeks.org/maximum-even-sum-subsequence/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -18,8 +19,7 @@ void solve()
 
     for(int i = 0; i < n; i++)
     {
-        if(a[i] % 2 == 0)
-        {
+        if(a[i] % 2 == 0){
             if(pre_mes > 0)
                 mes = pre_mes + a[i];
             else
@@ -31,8 +31,7 @@ void solve()
             pre_mes = mes;
             pre_mos = mos;         
         }
-        else
-        {
+        else{
             if(pre_mos == 0)
                 mes = 0;
             else
