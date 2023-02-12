@@ -1,48 +1,74 @@
+// Problem link: https://openerp.dailyopt.ai/programming-contest/student-view-contest-problem-detail/APPLIED_ALGORITHM_2022_2023_1/CBUS
 #include <bits/stdc++.h>
-
 using namespace std;
+#define MAX 100
 
-int n, k;
-int c[30][30];
-// trace[i] = j mean the point j is the ith point has moved 
-// moved[i] = 1 mean that point i has been gone through
-int trace[20], moved[20];   
-int num_pass = 0, cur_dis = 0, min_dis = 0;
+int N;    // number of requests (1,2,...,N). Request i has pickup point i and drop-off point i + N
+int cap;    // number of places of the bus
+int A[2*MAX+1][2*MAX+1];
 
-void input() 
-{
-    scanf("%d %d", &n, &k);
-    for(int i = 0; i <= 2*n; i++)
-        for(int j = 0; j <= 2*n; j++)
-            scanf("%d", &c[i][j]);
-}
+int x[MAX], appear[MAX];    // marking
+int load, f, f_best, cmin;
+int x_best[MAX];
 
-bool check(int v, int k)
-{
-    return true;
-}
-
-void Try(int k)
-{
-    for(int v = 1; v <= 2*n; v++)
-    {
-        if(1 <= v && v <= n)
-        {
-            if(num_pass < k && moved[v] != 1)
-            {
-                num_pass++;
-                trace[k] = v;
-                moved[v] = 1;
-                cur_dis += c[trace[k-1]][v];
-                if(cur_dis < min_dis)
-                    Try(k+1);
-            }
-            
-
+void input(){
+    scanf("%d%d",&N,&cap);
+    cmin = 1000000;
+    for(int i = 0; i <= 2*N;  i++){
+        for(int j= 0; j <= 2*N; j++){
+            scanf("%d",&A[i][j]);
+            if(i != j && cmin > A[i][j]) cmin = A[i][j];
         }
     }
 }
 
-int main() {
-    return 0;
+int check(int v, int k){
+    if(appear[v] == 1) return 0;
+    if(v >N){
+        if(!appear[v-N]) return 0;
+    }else{
+        if(load + 1 > cap) return 0;
+    }
+    return 1;
+}
+void solution(){
+    if(f + A[x[2*N]][0] < f_best){
+        f_best = f + A[x[2*N]][0];
+        for(int i = 0; i <= 2*N; i++) x_best[i] = x[i];
+        //printf("update best %d\n",f_best);
+    }
+}
+void TRY(int k){
+    for(int v = 1; v <=2*N; v++){
+        if(check(v,k)){
+            x[k] = v;
+            f += A[x[k-1]][x[k]];
+            if(v <= N) load += 1; else load += -1;
+            appear[v] = 1;
+            if(k == 2*N) solution();
+            else{
+                if(f + (2*N+1-k)*cmin < f_best)
+                    TRY(k+1);
+            }
+            if(v <= N) load -= 1; else load -= -1;
+            appear[v] = 0;
+            f -= A[x[k-1]][x[k]];
+        }
+    }
+}
+
+void solve(){
+    load = 0;
+    f = 0;
+    f_best = 1000000;
+    for(int i = 1; i <= 2*N; i++) appear[i] = 0;
+    x[0] = 0;// starting point
+    TRY(1);
+    printf("%d",f_best);
+}
+
+int main(){
+    input();
+    solve();
+  return 0;
 }
