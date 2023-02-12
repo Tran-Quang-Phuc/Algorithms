@@ -1,9 +1,10 @@
+// Problem link: https://openerp.dailyopt.ai/programming-contest/student-view-contest-problem-detail/APPLIED_ALGORITHM_2022_2023_1/MAZE
 #include <bits/stdc++.h>
 
 using namespace std;
 
-#define N 1000
-#define M 1000
+const int N = 1000;
+const int M = 1000;
 
 typedef pair<int, int> Point;
 int d[N][M];
