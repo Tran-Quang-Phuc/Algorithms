@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 int maxHist(int row[], int n)
 {
     // Create a stack to hold indexes of hist[] array. 
