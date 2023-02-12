@@ -1,3 +1,4 @@
+// Problem link: https://openerp.dailyopt.ai/programming-contest/student-view-contest-problem-detail/APPLIED_ALGORITHM_2022_2023_1/NURSE
 #include <bits/stdc++.h>
 
 using namespace std;
