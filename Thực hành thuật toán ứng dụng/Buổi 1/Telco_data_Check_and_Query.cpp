@@ -1,3 +1,4 @@
+// Problem link: https://openerp.dailyopt.ai/programming-contest/student-view-contest-problem-detail/APPLIED_ALGORITHM_2022_2023_1/TELCO_BASIC_QUERY
 #include <bits/stdc++.h>
 
 using namespace std;
